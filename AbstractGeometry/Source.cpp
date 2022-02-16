@@ -77,11 +77,11 @@ namespace Geometry
 		void info()const
 		{
 			cout << "Площадь фигуры: " << get_area() << endl;
-			cout << "Периметр фигуры:" << get_perimeter() << endl;
+			cout << "Периметр фигуры: " << get_perimeter() << endl;
 			draw();
 		}
 	};
-
+	
 	class Square :public Shape
 	{
 		double side;
@@ -133,7 +133,7 @@ namespace Geometry
 		}
 	};
 	// Добавление параллеограмма
-	class parallellogram : public Shape
+	class Parallellogram : public Shape
 	{
 		double width;
 		double height;
@@ -167,6 +167,56 @@ namespace Geometry
 			this->angle = angle;
 		}
 
+		Parallellogram(double width,double height, double angle,
+			unsigned int start_x, unsigned int start_y, unsigned int line_width,Color color):
+			Shape(start_x,start_y,line_width,color)
+		{
+			set_width(width);
+			set_height(height);
+			set_angle(angle);
+		}
+
+		~Parallellogram(){}
+
+		double get_area()const
+		{
+			return width * height;
+		}
+		double get_perimeter()const
+		{
+			return width * 2 + height * 2;
+		}
+		void draw()const
+		{
+			HWND hwnd = GetConsoleWindow();
+			HDC hdc = GetDC(hwnd);
+			HPEN hPen = CreatePen(PS_SOLID, line_width, color);
+			HBRUSH hBrush = CreateSolidBrush(color);
+
+			SelectObject(hdc, hPen);
+			SelectObject(hdc, hBrush);
+
+			POINT points[] =
+			{
+				{start_x, start_y},
+				{start_x,start_y+height},
+				{start_x + height, start_y + height},
+				{start_x + height / 2, start_y + height - get_height()}
+			};
+			Polygon(hdc, points, sizeof(points) / sizeof(POINT));
+
+			DeleteObject(hBrush);
+			DeleteObject(hPen);
+			ReleaseDC(hwnd, hdc);
+		}
+
+		void info()const
+		{
+			Shape::info();
+			cout << typeid(*this).name() << endl;
+			
+		}
+		
 	};
 
 
@@ -454,12 +504,18 @@ void main()
 	COORD console_rect{ 120,32 };
 	SetConsoleDisplayMode(hConsole, CONSOLE_FULLSCREEN_MODE, &console_rect);
 
-	Geometry::Square square(5, 100, 100, 5, Geometry::Color::console_red);
-	square.info();
 
-	Geometry::Rectangle rect(150, 80, 500, 100, 5, Geometry::Color::blue);
-	rect.info();
+	Geometry::Parallellogram Paraleo(100,100,45,50,100,5,Geometry::Color::blue);
+	Paraleo.info();
+	
 
+	/*Geometry::Square square(5, 100, 100, 5, Geometry::Color::console_red);
+	square.info();*/
+
+	/*Geometry::Rectangle rect(150, 80, 500, 100, 5, Geometry::Color::blue);
+	rect.info();*/
+
+	/*
 	Geometry::Circle circle(150, 500, 250, 5, Geometry::Color::yellow);
 	circle.info();
 
@@ -467,5 +523,8 @@ void main()
 	eqt.info();
 
 	Geometry::IsoscalesTriangle isct(180, 91, 100, 100, 1, Geometry::Color::green);
-	isct.info();
+	isct.info();*/
+
+
+
 }
