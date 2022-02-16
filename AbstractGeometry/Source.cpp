@@ -132,6 +132,43 @@ namespace Geometry
 			Shape::info();
 		}
 	};
+	// Добавление параллеограмма
+	class parallellogram : public Shape
+	{
+		double width;
+		double height;
+		double angle;
+	public:
+		double get_width()const
+		{
+			return width;
+		}
+		double get_height()const
+		{
+			return height;
+		}
+		double get_angle()const
+		{
+			return angle;
+		}
+
+		void set_width(double width)
+		{
+			this->width = width;
+		}
+		void set_height(double height)
+		{
+			this->height = height;
+		}
+		void set_angle(double angle) 
+		{
+			if (angle > 360) angle = 360;
+			if (angle < 0) angle = 0;
+			this->angle = angle;
+		}
+
+	};
+
 
 	class Rectangle :public Shape
 	{
