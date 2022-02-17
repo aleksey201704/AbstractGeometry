@@ -199,9 +199,9 @@ namespace Geometry
 			POINT points[] =
 			{
 				{start_x, start_y},
-				{start_x,start_y+height},
-				{start_x + height, start_y + height},
-				{start_x + height / 2, start_y + height - get_height()}
+				{start_x-(height/tan(angle)),start_y+height},
+				{start_x - (height / tan(angle))+width, start_y+height},
+				{start_x+width, start_y}
 			};
 			Polygon(hdc, points, sizeof(points) / sizeof(POINT));
 
@@ -505,7 +505,7 @@ void main()
 	SetConsoleDisplayMode(hConsole, CONSOLE_FULLSCREEN_MODE, &console_rect);
 
 
-	Geometry::Parallellogram Paraleo(100,100,45,50,100,5,Geometry::Color::blue);
+	Geometry::Parallellogram Paraleo(50,50,20,100,100,2,Geometry::Color::blue);
 	Paraleo.info();
 	
 
