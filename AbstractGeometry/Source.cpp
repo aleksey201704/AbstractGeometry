@@ -505,9 +505,11 @@ void main()
 	SetConsoleDisplayMode(hConsole, CONSOLE_FULLSCREEN_MODE, &console_rect);
 
 
-	Geometry::Parallellogram Paraleo(50,50,20,100,100,2,Geometry::Color::blue);
+	Geometry::Parallellogram Paraleo(50,30,60,100,200,2,Geometry::Color::blue);
 	Paraleo.info();
 	
+	Geometry::Parallellogram Paraleo1(50, 50, 45, 200, 200, 2, Geometry::Color::blue);
+	Paraleo1.info();
 
 	/*Geometry::Square square(5, 100, 100, 5, Geometry::Color::console_red);
 	square.info();*/
